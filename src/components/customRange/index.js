@@ -5,24 +5,29 @@ import RangeService from "../../services/range";
 import "./index.scss";
 
 const Range = ({ typeRange }) => {
-  const isFirst =  typeRange === "first";
+  const isFirst = typeRange === "first";
   const [initialRange, setInitialRange] = useState(0);
   const [finalRange, setFinalRange] = useState(99);
   const [customContent, setCustomContent] = useState([]);
-  const [classNameElement, setClassNameElement] = useState('')
+  const [classNameElement, setClassNameElement] = useState("");
 
   useEffect(async () => {
     try {
       const {
         data: { min, max, range },
-      } =
-      isFirst
-          ? await RangeService.findFirstExcercise()
-          : await RangeService.findSecondExcercise();
+      } = isFirst
+        ? await RangeService.findFirstExcercise()
+        : await RangeService.findSecondExcercise();
       setInitialRange(min);
       setFinalRange(max);
-      setCustomContent(range ?? new Array(max + 1).fill().map((_, index) => index));
-      setClassNameElement(isFirst ? 'component-range__content--first' : 'component-range__content--second')
+      setCustomContent(
+        range ?? new Array(max + 1).fill().map((_, index) => index)
+      );
+      setClassNameElement(
+        isFirst
+          ? "component-range__content--first"
+          : "component-range__content--second"
+      );
     } catch (err) {}
   }, []);
 
