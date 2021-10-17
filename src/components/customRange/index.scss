@@ -1,3 +1,5 @@
+@import '../../styles/_variables';
+
 .component-range {
   display: flex;
   align-self: center;
@@ -5,34 +7,34 @@
     margin:0 20px;
   }
   &__content {
-    background-color: black;
+    background-color: $first-color;
     background-clip: content-box;
     padding: 7px 0;
     
     &--first {
-      height: 6px;
-      width: 4px;
+      height: $spacing-6;
+      width: $spacing-8;
     }
 
     &--second {
-      width: 20px;
-      height: 6px;
+      width: $spacing-20;
+      height: $spacing-6;
     }
   }
   &__selected {
-    background: black;
+    background: $first-color;
     z-index: 1;
-    width: 15px;
-    height: 16px;
+    width: $spacing-14;
+    height: $spacing-16;
     position: relative;
     bottom: 5px;
-    border-radius: 8px;
+    border-radius: $spacing-8;
   }
   &__selected:hover {
-    width: 18px;
+    width:$spacing-18;
     height: 19px;
-    border-radius: 10px;
-    bottom: 6px;
+    border-radius: $spacing-10;
+    bottom:$spacing-6;
     cursor: pointer;
   }
 }
