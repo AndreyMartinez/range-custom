@@ -1,18 +1,42 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import PropTypes from 'prop-types';
+
+import RangeService from "../../services/range";
+
 import "./index.scss";
 
-const CustomRange = ({}) => {
-  const [customContent, _] = useState(
-    new Array(100).fill().map((_, index) => index)
-  );
+const Range = ({ typeRange }) => {
+  const isFirst = typeRange === "first";
   const [initialRange, setInitialRange] = useState(0);
   const [finalRange, setFinalRange] = useState(99);
+  const [customContent, setCustomContent] = useState([]);
+  const [classNameElement, setClassNameElement] = useState("");
+
+  useEffect(async () => {
+    try {
+      const {
+        data: { min, max, range },
+      } = isFirst
+        ? await RangeService.findFirstExcercise()
+        : await RangeService.findSecondExcercise();
+      setInitialRange(min);
+      setFinalRange(max);
+      setCustomContent(
+        range ?? new Array(max + 1).fill().map((_, index) => index)
+      );
+      setClassNameElement(
+        isFirst
+          ? "component-range__content--first"
+          : "component-range__content--second"
+      );
+    } catch (err) {}
+  }, []);
 
   const ondrop = (e, content) => {
     const droppedItem = e.dataTransfer.getData("drag-item");
-    if (droppedItem === "initial") {
+    if (droppedItem === "initial" && +content < finalRange) {
       setInitialRange(+content);
-    } else {
+    } else if (droppedItem === "final" && +content > initialRange) {
       setFinalRange(+content);
     }
   };
@@ -26,11 +50,11 @@ const CustomRange = ({}) => {
 
   return (
     <div className="component-range">
-      <p className="component-range__text">{initialRange}</p>
+      <p className="component-range__text">{initialRange} €</p>
       {customContent.map((content) => (
         <div
           key={content}
-          className="component-range__content"
+          className={`component-range__content ${classNameElement}`}
           onDrop={(e) => ondrop(e, content)}
           onDragOver={dragOver}
         >
@@ -50,9 +74,13 @@ const CustomRange = ({}) => {
           )}
         </div>
       ))}
-      <p className="component-range__text">{finalRange}</p>
+      <p className="component-range__text">{finalRange} €</p>
     </div>
   );
 };
 
-export default CustomRange;
+Range.propTypes = {
+  typeRange: PropTypes.oneOf(['first','second']).isRequired
+}
+
+export default Range;

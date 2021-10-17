@@ -1,9 +1,8 @@
 import React from 'react'
+import Range from '../../components/customRange';
 
 const ExerciseSecond = () => (
-    <p>
-        Hellos
-    </p>
+  <Range typeRange="second"/>
 )
 
 

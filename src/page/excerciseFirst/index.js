@@ -1,10 +1,8 @@
 import React from 'react'
-import CustomRange from '../../components/customRange';
+import Range from '../../components/customRange';
 
 const ExerciseFirst = () => (
-    <p>
-        <CustomRange />
-    </p>
+        <Range  typeRange="first"/>
 )
 
 
