@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import PropTypes from 'prop-types';
 
 import RangeService from "../../services/range";
 
@@ -77,5 +78,9 @@ const Range = ({ typeRange }) => {
     </div>
   );
 };
+
+Range.propTypes = {
+  typeRange: PropTypes.oneOf(['first','second']).isRequired
+}
 
 export default Range;
