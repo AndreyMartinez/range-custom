@@ -1,0 +1,29 @@
+.component-range {
+  display: flex;
+  align-self: center;
+  &__text {
+    margin:0 20px;
+  }
+  &__content {
+    width: 4px;
+    height: 6px;
+    padding: 7px 0;
+    background-color: black;
+    background-clip: content-box;
+  }
+  &__selected {
+    background: black;
+    z-index: 1;
+    width: 15px;
+    height: 16px;
+    position: relative;
+    bottom: 5px;
+    border-radius: 8px;
+  }
+  &__selected:hover {
+    width: 18px;
+    height: 19px;
+    border-radius: 10px;
+    bottom: 6px;
+  }
+}
